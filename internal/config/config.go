@@ -40,5 +40,5 @@ func MustLoad() *Config {
 		log.Fatalf("cannot read config file %s", err.Error())
 
 	}
-	return cfg
+	return &cfg
 }
