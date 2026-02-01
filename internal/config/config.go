@@ -2,6 +2,7 @@ package config
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -9,7 +10,7 @@ import (
 )
 
 type HttpServer struct {
-	Address string
+	Address string `yaml:"address" env-required:"true"`
 }
 
 // env-default="production" <-
@@ -21,6 +22,7 @@ type Config struct {
 
 func MustLoad() *Config {
 	var configPath string
+	fmt.Println("setting up things")
 	configPath = os.Getenv("CONFIG_PATH")
 	if configPath == "" {
 		flags := flag.String("config", "", "path to config file")
@@ -40,5 +42,6 @@ func MustLoad() *Config {
 		log.Fatalf("cannot read config file %s", err.Error())
 
 	}
+	fmt.Println("done")
 	return &cfg
 }
